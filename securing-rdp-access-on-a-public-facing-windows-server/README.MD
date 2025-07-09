@@ -87,6 +87,18 @@ Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624} |
   } | Out-File "$env:USERPROFILE\Desktop\RDP_Logins.txt"
 ```
 
+### ✅ Step 6: Show all public ip in RDP Logons
+
+```powershell
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624} |
+  Where-Object { $_.ToXml().ToString() -match '<LogonType>10</LogonType>' } |
+  ForEach-Object {
+    [xml]$xml = $_.ToXml()
+    $ip = $xml.Event.EventData.Data | Where-Object {$_.Name -eq 'IpAddress'} | Select-Object -ExpandProperty '#text'
+    "$($_.TimeCreated): $ip"
+  }
+```
+
 ---
 
 ## 🚀 Next Steps (Planned)
