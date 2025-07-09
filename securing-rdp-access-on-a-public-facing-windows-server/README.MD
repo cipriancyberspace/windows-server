@@ -1,4 +1,4 @@
-# 🛡️ Secure Remote Desktop Exposure – Windows Server Lab Project
+# 🛡️ Secure Remote Desktop Exposure – Windows Server
 
 This project demonstrates how to securely expose **Remote Desktop Protocol (RDP)** on a **Windows Server 2019** machine accessible over the internet.  
 It focuses on reducing risk, monitoring access, and applying real-world cybersecurity controls.
@@ -133,7 +133,6 @@ Only after a successful push notification approval, the user is allowed to log i
 The honeypot script was written in Python. It's just a simulation example, since we can't run two services on the same internal port.
 Instead of using the same port, I configured the honeypot to listen on port 33891.
 If you want to attract more attackers, you can run it on port 3389 from a different internal IP address — but not on the same machine that's already using that port.
-
 You can find the script in the documentation — it's called honeypot.py
 ---
 
@@ -150,5 +149,5 @@ It can be used to:
 
 ## 🧠 Credits
 
-Project by [Your Name] – cybersecurity learner & practitioner.  
+Project by Caluian Ciprian – cybersecurity learner & practitioner.  
 Feel free to contribute or fork!
