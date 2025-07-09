@@ -22,27 +22,47 @@ It focuses on reducing risk, monitoring access, and applying real-world cybersec
 ## 🔐 Hardening Measures Implemented
 
 ### ✅ Step 1: Enable RDP Login Auditing
-- Enabled auditing via: AuditPol /set /subcategory:"Logon" /success:enable /failure:enable
 
-- Relevant logs:  
+Enabled auditing via:
+
+```powershell
+AuditPol /set /subcategory:"Logon" /success:enable /failure:enable
+```
+
+Relevant logs:
 - `Event ID 4624` → Successful logon  
 - `LogonType 10` → Indicates RDP login
 
+---
+
 ### ✅ Step 2: Restrict RDP by IP Address (Firewall Rule)
+
 ```powershell
 New-NetFirewallRule -DisplayName "Allow RDP from My IP" `
 -Direction Inbound -Protocol TCP -LocalPort 3389 `
 -RemoteAddress YOUR.PUBLIC.IP.HERE -Action Allow
 
 Disable-NetFirewallRule -DisplayName "Remote Desktop - User Mode (TCP-In)"
+```
+
+---
 
 ### ✅ Step 3: Monitor Active RDP Connections
 
-Run the command `netstat -an | findstr :3389` to view active RDP connections.
+Run the command below to view active RDP connections:
 
-### ✅ Step 4 Create Event Viewer XML Filter for RDP Logons
+```powershell
+netstat -an | findstr :3389
+```
 
-'<QueryList>
+---
+
+### ✅ Step 4: Create Event Viewer XML Filter for RDP Logons
+
+Paste this XML into Event Viewer → Filter → XML tab:
+
+```xml
+<QueryList>
   <Query Id="0" Path="Security">
     <Select Path="Security">
       *[System[(EventID=4624)]]
@@ -50,4 +70,47 @@ Run the command `netstat -an | findstr :3389` to view active RDP connections.
       *[EventData[Data[@Name='LogonType']='10']]
     </Select>
   </Query>
-</QueryList>'
+</QueryList>
+```
+
+---
+
+### ✅ Step 5: Export RDP Logons via PowerShell
+
+```powershell
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624} |
+  Where-Object { $_.ToXml().ToString() -match '<LogonType>10</LogonType>' } |
+  ForEach-Object {
+    [xml]$xml = $_.ToXml()
+    $ip = $xml.Event.EventData.Data | Where-Object {$_.Name -eq 'IpAddress'} | Select-Object -ExpandProperty '#text'
+    "$($_.TimeCreated): $ip"
+  } | Out-File "$env:USERPROFILE\Desktop\RDP_Logins.txt"
+```
+
+---
+
+## 🚀 Next Steps (Planned)
+
+- [ ] Deploy **Sysmon** with SwiftOnSecurity config for deep monitoring  
+- [ ] Enable **2FA for RDP** via Duo or other providers  
+- [ ] Create alerting script for Event ID `4625` (failed logon)  
+- [ ] Set up an **RDP honeypot** to collect attacker behavior  
+- [ ] Log and visualize events using ELK or Windows Event Forwarding  
+
+---
+
+## 🎯 Purpose
+
+This lab simulates real-world attack surfaces and demonstrates proper security hardening for remote access scenarios.  
+It can be used to:
+
+- Practice monitoring & defense  
+- Build a cybersecurity lab portfolio  
+- Understand how attackers probe public RDP endpoints  
+
+---
+
+## 🧠 Credits
+
+Project by [Your Name] – cybersecurity learner & practitioner.  
+Feel free to contribute or fork!
