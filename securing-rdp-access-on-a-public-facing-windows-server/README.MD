@@ -1,4 +1,4 @@
-# 🛡️ Secure Remote Desktop Exposure – Windows Server Lab
+# 🛡️ Secure Remote Desktop Exposure – Windows Server 
 
 This project demonstrates how to **securely expose RDP (Remote Desktop Protocol)** on a **Windows Server 2019** machine while applying real-world cybersecurity hardening techniques. It also includes **advanced monitoring with Sysmon**, **Duo 2FA integration**, and a custom **RDP honeypot** to simulate attacker behavior.
 
