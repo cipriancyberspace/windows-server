@@ -121,8 +121,20 @@ Only after a successful push notification approval, the user is allowed to log i
 💡 This mitigates credential theft risks even if the password is leaked.
  
 ## 🔐 Set up an **RDP honeypot** to collect attacker behavior  
-  
 
+| Component           | Value                        |
+|---------------------|------------------------------|
+| OS                  | Windows Server 2019          |
+| Internal IP         | `192.168.1.139`              |
+| Public IP (Example) | `81.1X.XX.X8`                |
+| RDP Real Access     | `81.1X.XX.X8:50001` → `3389` |
+| RDP Honeypot        | `81.1X.XX.X8:50002` → `33891` |
+
+The honeypot script was written in Python. It's just a simulation example, since we can't run two services on the same internal port.
+Instead of using the same port, I configured the honeypot to listen on port 33891.
+If you want to attract more attackers, you can run it on port 3389 from a different internal IP address — but not on the same machine that's already using that port.
+
+You can find the script in the documentation — it's called honeypot.py
 ---
 
 ## 🎯 Purpose
