@@ -11,7 +11,7 @@ This project demonstrates how to **securely expose RDP (Remote Desktop Protocol)
 | OS                    | Windows Server 2019          |
 | Internal IP           | `192.168.1.139`              |
 | RDP Real Access       | `PUBLIC_IP:50001 → 3389`     |
-| RDP Honeypot Access   | `PUBLIC_IP:3389 → 33891`     |
+| RDP Honeypot Access   | `PUBLIC_IP:50002 → 33891`     |
 | Remote Desktop        | ✅ Enabled                   |
 | Network Level Auth    | ✅ Enabled                   |
 | Admin Account         | 🔐 Strong password           |
@@ -107,7 +107,7 @@ A lightweight **Python honeypot** was created to log unauthorized RDP scanning a
 | Honeypot     | 192.168.1.139      | 33891   |
 
 Port forwarding:
-- **Public 3389** → `192.168.1.139:33891` → Honeypot
+- **Public 50002** → `192.168.1.139:33891` → Honeypot
 - **Public 50001** → `192.168.1.139:3389` → Real RDP
 
 ### ✅ Why Port 33891?
