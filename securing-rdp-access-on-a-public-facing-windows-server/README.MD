@@ -101,13 +101,24 @@ Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624} |
 
 ---
 
-## 🚀 Next Steps (Planned)
+## 🔐 Sysmon Integration
 
-- [ ] Deploy **Sysmon** with SwiftOnSecurity config for deep monitoring  
-- [ ] Enable **2FA for RDP** via Duo or other providers  
-- [ ] Create alerting script for Event ID `4625` (failed logon)  
-- [ ] Set up an **RDP honeypot** to collect attacker behavior  
-- [ ] Log and visualize events using ELK or Windows Event Forwarding  
+Sysmon was installed and configured to track system activity
+All logons, process creations, and file writes are now recorded
+Log analysis can be done via Event Viewer or exported for correlation
+
+## 🔐 Enable **2FA for RDP** via Duo  
+
+Duo Security was integrated to require 2FA before allowing RDP login
+
+Duo Client + Application created and configured
+
+Only after a successful push notification approval, the user is allowed to log in
+
+💡 This mitigates credential theft risks even if the password is leaked.
+ 
+## 🔐 Set up an **RDP honeypot** to collect attacker behavior  
+  
 
 ---
 
