@@ -35,3 +35,19 @@ New-NetFirewallRule -DisplayName "Allow RDP from My IP" `
 -RemoteAddress YOUR.PUBLIC.IP.HERE -Action Allow
 
 Disable-NetFirewallRule -DisplayName "Remote Desktop - User Mode (TCP-In)"
+
+### ✅ Step 3: Monitor Active RDP Connections
+
+Run the command `netstat -an | findstr :3389` to view active RDP connections.
+
+### ✅ Step 4 Create Event Viewer XML Filter for RDP Logons
+
+'<QueryList>
+  <Query Id="0" Path="Security">
+    <Select Path="Security">
+      *[System[(EventID=4624)]]
+      and
+      *[EventData[Data[@Name='LogonType']='10']]
+    </Select>
+  </Query>
+</QueryList>'
