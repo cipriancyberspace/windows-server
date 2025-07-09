@@ -22,5 +22,16 @@ It focuses on reducing risk, monitoring access, and applying real-world cybersec
 ## 🔐 Hardening Measures Implemented
 
 ### ✅ Step 1: Enable RDP Login Auditing
-- Enabled auditing via:
+- Enabled auditing via: AuditPol /set /subcategory:"Logon" /success:enable /failure:enable
 
+- Relevant logs:  
+- `Event ID 4624` → Successful logon  
+- `LogonType 10` → Indicates RDP login
+
+### ✅ Step 2: Restrict RDP by IP Address (Firewall Rule)
+```powershell
+New-NetFirewallRule -DisplayName "Allow RDP from My IP" `
+-Direction Inbound -Protocol TCP -LocalPort 3389 `
+-RemoteAddress YOUR.PUBLIC.IP.HERE -Action Allow
+
+Disable-NetFirewallRule -DisplayName "Remote Desktop - User Mode (TCP-In)"
