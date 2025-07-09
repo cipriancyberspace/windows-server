@@ -1,7 +1,6 @@
 # 🛡️ Secure Remote Desktop Exposure – Windows Server
 
-This project demonstrates how to securely expose **Remote Desktop Protocol (RDP)** on a **Windows Server 2019** machine accessible over the internet.  
-It focuses on reducing risk, monitoring access, and applying real-world cybersecurity controls.
+This project demonstrates how to securely expose **Remote Desktop Protocol (RDP)** on a **Windows Server 2019** machine accessible over the internet. It focuses on reducing risk, monitoring access, and applying real-world cybersecurity controls.
 
 ---
 
