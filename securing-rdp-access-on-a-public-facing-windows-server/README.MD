@@ -107,7 +107,11 @@ Sysmon was installed and configured to track system activity
 All logons, process creations, and file writes are now recorded
 Log analysis can be done via Event Viewer or exported for correlation
 
-After you download sysmon use this command for install it '''powershell .\sysmon.exe -i'''
+After you download sysmon use this command for install it ```powershell
+.\sysmon.exe -i
+```
+
+---
 
 ## 🔐 Enable **2FA for RDP** via Duo  
 
